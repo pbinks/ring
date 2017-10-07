@@ -14,10 +14,18 @@ namespace ConsoleRunner
             Console.WriteLine("Password: ");
             var password = Console.ReadLine();
             var loginHandler = new LoginHandler(username, password, requestHandler);
-            var result = loginHandler.Login(new HtmlParser());
+            var parser = new HtmlParser();
+            var result = loginHandler.Login(parser);
             while (!result.IsCompleted) {
                 Thread.Sleep(100);
             }
+            var balanceHandler = new BalanceHandler();
+            var balance = balanceHandler.GetBalance(requestHandler, parser);
+            while (!balance.IsCompleted) {
+                Thread.Sleep(100);
+            }
+            Console.WriteLine(
+                String.Format("Your balance is £{0}", balance.Result));
 
             Console.ReadKey();
         }

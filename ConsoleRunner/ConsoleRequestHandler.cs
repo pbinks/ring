@@ -12,35 +12,48 @@ namespace ConsoleRunner
         static CookieContainer cookies = new CookieContainer();
         public static readonly HttpClient client = new HttpClient(
             new HttpClientHandler {
-            CookieContainer = cookies,
-            AllowAutoRedirect = false,
-            UseCookies = true
+                CookieContainer = cookies,
+                AllowAutoRedirect = false,
+                UseCookies = true
         });
 
-        public ConsoleRequestHandler()
+        public async override Task<String> Get(Request request)
         {
-        }
-
-        public async override Task<String> Get(string url)
-        {
-            var response = await client.GetAsync(url);
+            var response = await client.GetAsync(request.Url);
+            foreach (var header in response.Headers)
+            {
+                if (header.Key == "Set-Cookie")
+                {
+                    foreach (var val in header.Value)
+                    {
+                        cookies.SetCookies(new Uri(request.Url), val);
+                    }
+                }
+            }
 
             return await response.Content.ReadAsStringAsync();
         }
 
-        public async override void Post(String url)
+        public async override Task<bool> Post(Request request)
         {
-			var content = new FormUrlEncodedContent(values);
+            var content = new FormUrlEncodedContent(request.Values);
 
-            try
-            {
-                var response = await client.PostAsync(url, content);
-
-                Console.WriteLine(response.Headers);
+            try {
+                var response = await client.PostAsync(request.Url, content);
+                var responseContent = await response.Content.ReadAsStringAsync();
+                foreach (var header in response.Headers) {
+                    if (header.Key == "Set-Cookie") {
+                        foreach (var val in header.Value) {
+                            cookies.SetCookies(new Uri(request.Url), val);
+                        }
+                    }
+                }
             } catch(Exception e) {
                 Console.WriteLine(e.Message);
                 Console.WriteLine(e.ToString());
+                return false;
             }
+            return true;
 		}
     }
 }

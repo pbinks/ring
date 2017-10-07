@@ -13,5 +13,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)LoginHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RequestHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HtmlParser.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Request.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BalanceHandler.cs" />
   </ItemGroup>
 </Project>

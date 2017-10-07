@@ -6,20 +6,8 @@ namespace Kerv
 {
     public abstract class RequestHandler
     {
-        protected Dictionary<String, String> values;
+        public abstract Task<bool> Post(Request request);
 
-        public RequestHandler()
-        {
-            values = new Dictionary<string, string>();
-        }
-
-        public void AddValue(String key, String value)
-        {
-            values.Add(key, value);
-        }
-
-        public abstract void Post(String url);
-
-        public virtual async Task<String> Get(String url) => await Task.FromResult("");
+        public virtual async Task<String> Get(Request request) => await Task.FromResult("");
     }
 }

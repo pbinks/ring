@@ -21,15 +21,15 @@ namespace Kerv
         }
 
         public async Task<bool> Login(HtmlParser parser) {
-            var html = await handler.Get(LoginPageUrl);
+            var pageRequest = new Request(LoginPageUrl);
+            var html = await handler.Get(pageRequest);
             var token = parser.GetVerificationToken(html);
 
-            handler.AddValue("LoginEmail", username);
-            handler.AddValue("UserPassword", password);
-            handler.AddValue("__RequestVerificationToken", token);
-            handler.Post(LoginUrl);
-
-            return true;
+            var loginRequest = new Request(LoginUrl);
+            loginRequest.AddValue("LoginEmail", username);
+            loginRequest.AddValue("UserPassword", password);
+            loginRequest.AddValue("__RequestVerificationToken", token);
+            return await handler.Post(loginRequest);
         }
     }
 }
