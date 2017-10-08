@@ -37,6 +37,7 @@
     <Compile Include="Account.cs" />
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="Transaction.cs" />
+    <Compile Include="Device.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="HtmlAgilityPack">

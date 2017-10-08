@@ -28,6 +28,22 @@ namespace Kerv.Droid
 		{
 		}
 		
+		public partial class Array
+		{
+			
+			// aapt resource value: 0x7f060000
+			public const int device_list = 2131099648;
+			
+			static Array()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Array()
+			{
+			}
+		}
+		
 		public partial class Attribute
 		{
 			
@@ -66,38 +82,41 @@ namespace Kerv.Droid
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f06000a
-			public const int amountView = 2131099658;
+			// aapt resource value: 0x7f07000b
+			public const int amountView = 2131165195;
 			
-			// aapt resource value: 0x7f060005
-			public const int balanceLabel = 2131099653;
+			// aapt resource value: 0x7f070005
+			public const int balanceLabel = 2131165189;
 			
-			// aapt resource value: 0x7f060004
-			public const int balanceLayout = 2131099652;
+			// aapt resource value: 0x7f070004
+			public const int balanceLayout = 2131165188;
 			
-			// aapt resource value: 0x7f060006
-			public const int balanceView = 2131099654;
+			// aapt resource value: 0x7f070006
+			public const int balanceView = 2131165190;
 			
-			// aapt resource value: 0x7f060008
-			public const int dateView = 2131099656;
+			// aapt resource value: 0x7f070009
+			public const int dateView = 2131165193;
 			
-			// aapt resource value: 0x7f060009
-			public const int descriptionView = 2131099657;
+			// aapt resource value: 0x7f07000a
+			public const int descriptionView = 2131165194;
 			
-			// aapt resource value: 0x7f060003
-			public const int loginProgress = 2131099651;
+			// aapt resource value: 0x7f070007
+			public const int deviceSpinner = 2131165191;
 			
-			// aapt resource value: 0x7f060001
-			public const int passwordField = 2131099649;
+			// aapt resource value: 0x7f070003
+			public const int loginProgress = 2131165187;
 			
-			// aapt resource value: 0x7f060002
-			public const int submitButton = 2131099650;
+			// aapt resource value: 0x7f070001
+			public const int passwordField = 2131165185;
 			
-			// aapt resource value: 0x7f060007
-			public const int transactionListView = 2131099655;
+			// aapt resource value: 0x7f070002
+			public const int submitButton = 2131165186;
 			
-			// aapt resource value: 0x7f060000
-			public const int usernameField = 2131099648;
+			// aapt resource value: 0x7f070008
+			public const int transactionListView = 2131165192;
+			
+			// aapt resource value: 0x7f070000
+			public const int usernameField = 2131165184;
 			
 			static Id()
 			{

@@ -11,9 +11,13 @@ namespace Kerv.Common
 
         static readonly String statementUrl =
             "https://kerv.com/en/account/statement/";
+        static readonly String transactionsUrl = 
+            "https://kerv.com/umbraco/Surface/KervAccount/CardStatementGet?page=1&duration=0&deviceid={0}&culture=en-GB";
 
         private List<Transaction> transactions;
         public List<Transaction> Transactions { get => transactions; }
+        public String RingID { get; private set; }
+        public String CardID { get; private set; }
 
         public StatementHandler() {
             transactions = new List<Transaction>();
@@ -26,10 +30,18 @@ namespace Kerv.Common
             {
                 var balance = ParseBalance(html);
                 ParseTransactions(html);
+                ParseDevices(html);
                 Account.Balance = balance;
             } catch(InvalidFormatException ex) {
                 return false;
             }
+            return true;
+        }
+
+        public async Task<bool> TransactionsForDevice(string deviceID) {
+            var html = await RequestHandler.Client.GetStringAsync(
+                String.Format(transactionsUrl, deviceID));
+            ParseTransactions(html);
             return true;
         }
 
@@ -75,6 +87,20 @@ namespace Kerv.Common
                     Description = description, 
                     Device = deviceString 
                 });
+            }
+        }
+
+        private void ParseDevices(String html) {
+            var document = new HtmlDocument();
+            document.LoadHtml(html);
+            var select = document.GetElementbyId("deviceID");
+            var options = select.Descendants("option");
+            foreach (var option in options) {
+                if (option.NextSibling.InnerText.Trim().StartsWith("Ring")) {
+                    RingID = option.Attributes["value"].Value;
+                } else if (option.NextSibling.InnerText.Trim().StartsWith("VCard")) {
+                    CardID = option.Attributes["value"].Value;
+                }
             }
         }
     }

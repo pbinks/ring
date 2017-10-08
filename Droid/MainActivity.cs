@@ -8,8 +8,11 @@ namespace Kerv.Droid
     [Activity(Label = "Kerv")]
     public class MainActivity : Activity
     {
+
+
         TextView balanceView;
         ListView transactionsView;
+        Spinner deviceSpinner;
         TransactionAdaptor transactionAdaptor;
         StatementHandler statementHandler;
 
@@ -22,8 +25,17 @@ namespace Kerv.Droid
             balanceView = FindViewById<TextView>(Resource.Id.balanceView);
             transactionsView = 
                 FindViewById<ListView>(Resource.Id.transactionListView);
+            deviceSpinner = FindViewById<Spinner>(Resource.Id.deviceSpinner);
+
             transactionAdaptor = new TransactionAdaptor(this);
             transactionsView.Adapter = transactionAdaptor;
+
+            deviceSpinner.Adapter = 
+                new ArrayAdapter(this, 
+                                 Android.Resource.Layout.SimpleSpinnerDropDownItem, 
+                                 Resources.GetStringArray(Resource.Array.device_list));
+            deviceSpinner.Enabled = false;
+            deviceSpinner.ItemSelected += DeviceSelected;
 
             if (Account.IsBalanceSet)
             {
@@ -39,7 +51,20 @@ namespace Kerv.Droid
             if (success) {
                 balanceView.Text = Account.Balance.ToString();
                 transactionAdaptor.Transactions = statementHandler.Transactions;
+                if (!string.IsNullOrEmpty(statementHandler.RingID)) {
+                    deviceSpinner.Enabled = true;
+                }
             }
+        }
+
+        async void DeviceSelected(object sender, AdapterView.ItemSelectedEventArgs e)
+        {
+            if (e.Position == 0) {
+                await statementHandler.TransactionsForDevice(statementHandler.CardID);
+            } else {
+                await statementHandler.TransactionsForDevice(statementHandler.RingID);
+            }
+            transactionAdaptor.Transactions = statementHandler.Transactions;
         }
     }
 }

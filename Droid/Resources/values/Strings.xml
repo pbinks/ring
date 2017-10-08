@@ -2,4 +2,8 @@
 <resources>
 	<string name="hello">Hello World, Click Me!</string>
 	<string name="app_name">Kerv.Droid</string>
+	<string-array name="device_list">
+        <item>Card</item>
+		<item>Ring</item>
+	</string-array>
 </resources>
