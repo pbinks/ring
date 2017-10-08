@@ -13,6 +13,8 @@ namespace Kerv
             var balanceRequest = new Request(balanceUrl);
             var result = await handler.Get(balanceRequest);
             var balanceString = parser.GetBalance(result);
+            var transactions = new TransactionStore();
+            parser.GetTransactions(result, out transactions);
             return float.Parse(balanceString.Trim().Substring(6));
         }
     }

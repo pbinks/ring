@@ -15,5 +15,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)HtmlParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Request.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BalanceHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Transaction.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Money.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TransactionStore.cs" />
   </ItemGroup>
 </Project>
