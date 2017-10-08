@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Kerv
 {
-    public class LoginHandler 
+    public class OldLoginHandler 
     {
         static String LoginPageUrl = "https://kerv.com/en/loginsignup#login";
         static String LoginUrl = "https://kerv.com/umbraco/Surface/LoginSignup/Login";
@@ -13,7 +13,7 @@ namespace Kerv
         String password;
         RequestHandler handler;
 
-        public LoginHandler(String username, String password, RequestHandler handler)
+        public OldLoginHandler(String username, String password, RequestHandler handler)
         {
             this.username = username;
             this.password = password;

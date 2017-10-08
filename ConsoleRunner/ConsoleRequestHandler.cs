@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Net;
 using System.Threading.Tasks;
 using Kerv;
+using System.Collections.Generic;
 
 namespace ConsoleRunner
 {
@@ -20,16 +21,6 @@ namespace ConsoleRunner
         public async override Task<String> Get(Request request)
         {
             var response = await client.GetAsync(request.Url);
-            foreach (var header in response.Headers)
-            {
-                if (header.Key == "Set-Cookie")
-                {
-                    foreach (var val in header.Value)
-                    {
-                        cookies.SetCookies(new Uri(request.Url), val);
-                    }
-                }
-            }
 
             return await response.Content.ReadAsStringAsync();
         }
@@ -40,11 +31,13 @@ namespace ConsoleRunner
 
             try {
                 var response = await client.PostAsync(request.Url, content);
-                var responseContent = await response.Content.ReadAsStringAsync();
-                foreach (var header in response.Headers) {
-                    if (header.Key == "Set-Cookie") {
-                        foreach (var val in header.Value) {
-                            cookies.SetCookies(new Uri(request.Url), val);
+                IEnumerable<string> cookieValues;
+                var hasCookies = response.Headers.TryGetValues("Set-Cookie", out cookieValues);
+                Console.WriteLine(hasCookies);
+                if (hasCookies) {
+                    foreach (var cookie in cookieValues) {
+                        if (cookie.StartsWith("kervplatform")) {
+                            Console.WriteLine("found");
                         }
                     }
                 }

@@ -13,7 +13,7 @@ namespace ConsoleRunner
             var username = Console.ReadLine();
             Console.WriteLine("Password: ");
             var password = Console.ReadLine();
-            var loginHandler = new LoginHandler(username, password, requestHandler);
+            var loginHandler = new OldLoginHandler(username, password, requestHandler);
             var parser = new HtmlParser();
             var result = loginHandler.Login(parser);
             while (!result.IsCompleted) {

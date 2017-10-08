@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kerv.iOS", "iOS\Kerv.iOS.cs
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleRunner", "ConsoleRunner\ConsoleRunner.csproj", "{B1F2CAC4-E79E-4091-8F17-6C7F90216F71}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kerv.Common", "Kerv.Common\Kerv.Common.csproj", "{0C48DE6F-94EA-458C-988E-64E9D5175E8F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,5 +57,17 @@ Global
 		{B1F2CAC4-E79E-4091-8F17-6C7F90216F71}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{B1F2CAC4-E79E-4091-8F17-6C7F90216F71}.Debug|iPhone.ActiveCfg = Debug|Any CPU
 		{B1F2CAC4-E79E-4091-8F17-6C7F90216F71}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{0C48DE6F-94EA-458C-988E-64E9D5175E8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C48DE6F-94EA-458C-988E-64E9D5175E8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C48DE6F-94EA-458C-988E-64E9D5175E8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C48DE6F-94EA-458C-988E-64E9D5175E8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C48DE6F-94EA-458C-988E-64E9D5175E8F}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{0C48DE6F-94EA-458C-988E-64E9D5175E8F}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{0C48DE6F-94EA-458C-988E-64E9D5175E8F}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{0C48DE6F-94EA-458C-988E-64E9D5175E8F}.Release|iPhone.Build.0 = Release|Any CPU
+		{0C48DE6F-94EA-458C-988E-64E9D5175E8F}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{0C48DE6F-94EA-458C-988E-64E9D5175E8F}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{0C48DE6F-94EA-458C-988E-64E9D5175E8F}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{0C48DE6F-94EA-458C-988E-64E9D5175E8F}.Debug|iPhone.Build.0 = Debug|Any CPU
 	EndGlobalSection
 EndGlobal

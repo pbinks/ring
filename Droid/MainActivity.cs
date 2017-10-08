@@ -4,7 +4,7 @@ using Android.OS;
 
 namespace Kerv.Droid
 {
-    [Activity(Label = "Kerv", MainLauncher = true, Icon = "@mipmap/icon")]
+    [Activity(Label = "Kerv")]
     public class MainActivity : Activity
     {
         int count = 1;

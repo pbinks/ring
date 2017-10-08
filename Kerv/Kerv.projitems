@@ -10,7 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)MyClass.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)LoginHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)OldLoginHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RequestHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HtmlParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Request.cs" />
