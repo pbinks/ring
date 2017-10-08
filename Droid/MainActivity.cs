@@ -1,26 +1,37 @@
 ﻿using Android.App;
 using Android.Widget;
 using Android.OS;
+using Kerv.Common;
 
 namespace Kerv.Droid
 {
     [Activity(Label = "Kerv")]
     public class MainActivity : Activity
     {
-        int count = 1;
+        TextView balanceView;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
-            // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
 
-            // Get our button from the layout resource,
-            // and attach an event to it
-            Button button = FindViewById<Button>(Resource.Id.myButton);
+            balanceView = FindViewById<TextView>(Resource.Id.balanceView);
 
-            button.Click += delegate { button.Text = $"{count++} clicks!"; };
+            if (Account.IsBalanceSet)
+            {
+                balanceView.Text = Account.Balance.ToString();
+            }
+
+            UpdateStatement();
+        }
+
+        private async void UpdateStatement() {
+            var handler = new StatementHandler();
+            var success = await handler.RefreshStatement();
+            if (success) {
+                balanceView.Text = Account.Balance.ToString();
+            }
         }
     }
 }

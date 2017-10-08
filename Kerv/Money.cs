@@ -31,6 +31,10 @@ namespace Kerv
             }
         }
 
+        public int Pence {
+            get => pence;
+        }
+
         public override string ToString() {
             return String.Format("£{0:F2}", Pounds);
         }

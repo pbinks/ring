@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <dimen name="activity_padding">8dp</dimen>
+	<dimen name="label_padding">8dp</dimen>
+</resources>
