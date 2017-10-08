@@ -19,5 +19,10 @@ namespace Kerv.Common
             get => AppSettings.GetValueOrDefault(nameof(Password), string.Empty);
             set => AppSettings.AddOrUpdateValue(nameof(Password), value);
         }
+
+        public static void Clear() {
+            AppSettings.Remove(nameof(Username));
+            AppSettings.Remove(nameof(Password));
+        }
     }
 }

@@ -13,7 +13,12 @@ namespace Kerv.Common
 
         public async Task<bool> Login(string username, string password)
         {
-            var html = await RequestHandler.Client.GetStringAsync(LoginPageUrl);
+            var response = await RequestHandler.Client.GetAsync(LoginPageUrl);
+            if (response.StatusCode == System.Net.HttpStatusCode.Redirect) {
+                // Already logged in!
+                return true;
+            }
+            var html = await response.Content.ReadAsStringAsync();
             var token = ParseToken(html);
 
             var formContent = new Dictionary<string, string>();
@@ -21,9 +26,17 @@ namespace Kerv.Common
             formContent.Add("UserPassword", password);
             formContent.Add("__RequestVerificationToken", token);
             var encodedContent = new FormUrlEncodedContent(formContent);
-            var response = 
+            response = 
                 await RequestHandler.Client.PostAsync(LoginUrl, encodedContent);
-            return ValidateLoginResponse(response);
+            if (ValidateLoginResponse(response)) {
+                Credentials.Username = username;
+                Credentials.Password = password;
+                return true;
+            } else {
+                Credentials.Clear();
+                return false;
+            }
+
         }
 
         string ParseToken(string html) {

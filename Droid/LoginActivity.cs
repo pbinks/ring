@@ -32,30 +32,39 @@ namespace Kerv.Droid
             passwordField = FindViewById<EditText>(Resource.Id.passwordField);
             submitButton = FindViewById<Button>(Resource.Id.submitButton);
             loginProgress = FindViewById<ProgressBar>(Resource.Id.loginProgress);
-            SetEnabled(true);
 
             submitButton.Click += delegate {
-                Login();
-            };;
+                Login(usernameField.Text, passwordField.Text);
+            };
+
+            if (String.IsNullOrEmpty(Credentials.Username)) {
+                SetEnabled(true);
+            } else {
+                SetEnabled(false);
+                Login(Credentials.Username, Credentials.Password);
+            }
         }
 
         void SetEnabled(bool enabled) {
-            usernameField.Activated = enabled;
-            passwordField.Activated = enabled;
-            submitButton.Activated = enabled;
+            usernameField.Visibility = enabled ? ViewStates.Visible : ViewStates.Gone;
+            passwordField.Visibility = enabled ? ViewStates.Visible : ViewStates.Gone;
+            submitButton.Visibility = enabled ? ViewStates.Visible : ViewStates.Gone;
             loginProgress.Visibility = enabled ? ViewStates.Gone : ViewStates.Visible;
         }
 
-        async void Login() {
+        async void Login(string username, string password) {
             SetEnabled(false);
             LoginHandler handler = new LoginHandler();
             var loggedIn = 
-                await handler.Login(usernameField.Text, passwordField.Text);
-            SetEnabled(true);
+                await handler.Login(username, password);
             if (loggedIn) {
-                Toast.MakeText(this, "Success!", ToastLength.Long).Show();
+                var intent = new Intent(this, typeof(MainActivity));
+                StartActivity(intent);
+                Finish();
             } else {
-                Toast.MakeText(this, "Fail :(", ToastLength.Long).Show();
+                Toast.MakeText(this, "Incorrect login details", 
+                               ToastLength.Long).Show();
+                SetEnabled(true);
             }
         }
     }
