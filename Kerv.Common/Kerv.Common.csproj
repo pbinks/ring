@@ -36,6 +36,7 @@
     <Compile Include="StatementHandler.cs" />
     <Compile Include="Account.cs" />
     <Compile Include="Helpers\Settings.cs" />
+    <Compile Include="Transaction.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="HtmlAgilityPack">

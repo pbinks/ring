@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using HtmlAgilityPack;
 
@@ -11,12 +12,20 @@ namespace Kerv.Common
         static readonly String statementUrl =
             "https://kerv.com/en/account/statement/";
 
+        private List<Transaction> transactions;
+        public List<Transaction> Transactions { get => transactions; }
+
+        public StatementHandler() {
+            transactions = new List<Transaction>();
+        }
+
         public async Task<bool> RefreshStatement()
         {
             var html = await RequestHandler.Client.GetStringAsync(statementUrl);
             try
             {
                 var balance = ParseBalance(html);
+                ParseTransactions(html);
                 Account.Balance = balance;
             } catch(InvalidFormatException ex) {
                 return false;
@@ -47,6 +56,7 @@ namespace Kerv.Common
             document.LoadHtml(html);
             var table = document.GetElementbyId("transactions");
             var rows = table.Descendants("tr");
+            transactions = new List<Transaction>();
             foreach (var row in rows)
             {
                 if (row.ChildNodes[1].Name == "th")
@@ -58,10 +68,13 @@ namespace Kerv.Common
                 var deviceString = cells[3].InnerText.Trim();
                 var description = cells[5].InnerText.Trim();
                 var amountString = cells[7].InnerText.Trim();
-                var balanceString = cells[9].InnerText.Trim();
                 var date = DateTime.Parse(dateString);
                 var amount = new Money(amountString);
-                var balance = new Money(balanceString);
+                Transactions.Add(new Transaction { Date = date, 
+                    Amount = amount, 
+                    Description = description, 
+                    Device = deviceString 
+                });
             }
         }
     }

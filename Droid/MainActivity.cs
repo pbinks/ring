@@ -9,6 +9,9 @@ namespace Kerv.Droid
     public class MainActivity : Activity
     {
         TextView balanceView;
+        ListView transactionsView;
+        TransactionAdaptor transactionAdaptor;
+        StatementHandler statementHandler;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -17,20 +20,25 @@ namespace Kerv.Droid
             SetContentView(Resource.Layout.Main);
 
             balanceView = FindViewById<TextView>(Resource.Id.balanceView);
+            transactionsView = 
+                FindViewById<ListView>(Resource.Id.transactionListView);
+            transactionAdaptor = new TransactionAdaptor(this);
+            transactionsView.Adapter = transactionAdaptor;
 
             if (Account.IsBalanceSet)
             {
                 balanceView.Text = Account.Balance.ToString();
             }
 
+            statementHandler = new StatementHandler();
             UpdateStatement();
         }
 
         private async void UpdateStatement() {
-            var handler = new StatementHandler();
-            var success = await handler.RefreshStatement();
+            var success = await statementHandler.RefreshStatement();
             if (success) {
                 balanceView.Text = Account.Balance.ToString();
+                transactionAdaptor.Transactions = statementHandler.Transactions;
             }
         }
     }

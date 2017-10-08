@@ -10,7 +10,9 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/linearLayout1">
+        android:id="@+id/balanceLayout"
+        android:paddingTop="@dimen/transaction_padding"
+        android:paddingBottom="@dimen/transaction_padding">
         <TextView
             android:text="Balance:"
             android:layout_width="wrap_content"
@@ -25,4 +27,10 @@
             android:id="@+id/balanceView"
             android:text="..." />
     </LinearLayout>
+    <ListView
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/transactionListView" />
 </LinearLayout>

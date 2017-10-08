@@ -50,6 +50,9 @@ namespace Kerv.Droid
 			// aapt resource value: 0x7f040001
 			public const int label_padding = 2130968577;
 			
+			// aapt resource value: 0x7f040002
+			public const int transaction_padding = 2130968578;
+			
 			static Dimension()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
@@ -63,14 +66,23 @@ namespace Kerv.Droid
 		public partial class Id
 		{
 			
+			// aapt resource value: 0x7f06000a
+			public const int amountView = 2131099658;
+			
 			// aapt resource value: 0x7f060005
 			public const int balanceLabel = 2131099653;
+			
+			// aapt resource value: 0x7f060004
+			public const int balanceLayout = 2131099652;
 			
 			// aapt resource value: 0x7f060006
 			public const int balanceView = 2131099654;
 			
-			// aapt resource value: 0x7f060004
-			public const int linearLayout1 = 2131099652;
+			// aapt resource value: 0x7f060008
+			public const int dateView = 2131099656;
+			
+			// aapt resource value: 0x7f060009
+			public const int descriptionView = 2131099657;
 			
 			// aapt resource value: 0x7f060003
 			public const int loginProgress = 2131099651;
@@ -80,6 +92,9 @@ namespace Kerv.Droid
 			
 			// aapt resource value: 0x7f060002
 			public const int submitButton = 2131099650;
+			
+			// aapt resource value: 0x7f060007
+			public const int transactionListView = 2131099655;
 			
 			// aapt resource value: 0x7f060000
 			public const int usernameField = 2131099648;
@@ -102,6 +117,9 @@ namespace Kerv.Droid
 			
 			// aapt resource value: 0x7f030001
 			public const int Main = 2130903041;
+			
+			// aapt resource value: 0x7f030002
+			public const int TransactionListItem = 2130903042;
 			
 			static Layout()
 			{
