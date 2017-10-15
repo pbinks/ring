@@ -37,7 +37,11 @@ namespace Kerv.Droid
                 Login(usernameField.Text, passwordField.Text);
             };
 
-            if (String.IsNullOrEmpty(Credentials.Username)) {
+            if (!String.IsNullOrEmpty(Credentials.Username)) {
+                usernameField.Text = Credentials.Username;
+            }
+
+            if (String.IsNullOrEmpty(Credentials.Password)) {
                 SetEnabled(true);
             } else {
                 SetEnabled(false);

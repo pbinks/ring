@@ -5,7 +5,7 @@ using HtmlAgilityPack;
 
 namespace Kerv.Common
 {
-    public class StatementHandler
+    public class StatementHandler : AuthenticatedRequestHandler
     {
         public class InvalidFormatException : Exception {}
 
@@ -25,12 +25,16 @@ namespace Kerv.Common
 
         public async Task<bool> RefreshStatement()
         {
-            var html = await RequestHandler.Client.GetStringAsync(statementUrl);
+            var response = await Get(statementUrl);
+            var html = await response.Content.ReadAsStringAsync();
             try
             {
-                var balance = ParseBalance(html);
-                ParseTransactions(html);
-                ParseDevices(html);
+                var doc = new HtmlDocument();
+                var stream = await response.Content.ReadAsStreamAsync();
+                doc.Load(stream);
+                var balance = ParseBalance(doc);
+                ParseTransactions(doc);
+                ParseDevices(doc);
                 Account.Balance = balance;
             } catch(InvalidFormatException ex) {
                 return false;
@@ -39,17 +43,17 @@ namespace Kerv.Common
         }
 
         public async Task<bool> TransactionsForDevice(string deviceID) {
-            var html = await RequestHandler.Client.GetStringAsync(
-                String.Format(transactionsUrl, deviceID));
-            ParseTransactions(html);
+            var response = await Get(String.Format(transactionsUrl, deviceID));
+            var doc = new HtmlDocument();
+            var stream = await response.Content.ReadAsStreamAsync();
+            doc.Load(stream);
+            ParseTransactions(doc);
             return true;
         }
 
-        private Money ParseBalance(String html)
+        private Money ParseBalance(HtmlDocument html)
         {
-            var document = new HtmlDocument();
-            document.LoadHtml(html);
-            var spans = document.DocumentNode.Descendants("span");
+            var spans = html.DocumentNode.Descendants("span");
             foreach (var span in spans)
             {
                 if (span.Attributes.Contains("class") &&
@@ -62,11 +66,9 @@ namespace Kerv.Common
             throw new InvalidFormatException();
         }
 
-        private void ParseTransactions(String html)
+        private void ParseTransactions(HtmlDocument html)
         {
-            var document = new HtmlDocument();
-            document.LoadHtml(html);
-            var table = document.GetElementbyId("transactions");
+            var table = html.GetElementbyId("transactions");
             var rows = table.Descendants("tr");
             transactions = new List<Transaction>();
             foreach (var row in rows)
@@ -90,10 +92,8 @@ namespace Kerv.Common
             }
         }
 
-        private void ParseDevices(String html) {
-            var document = new HtmlDocument();
-            document.LoadHtml(html);
-            var select = document.GetElementbyId("deviceID");
+        private void ParseDevices(HtmlDocument html) {
+            var select = html.GetElementbyId("deviceID");
             var options = select.Descendants("option");
             foreach (var option in options) {
                 if (option.NextSibling.InnerText.Trim().StartsWith("Ring")) {

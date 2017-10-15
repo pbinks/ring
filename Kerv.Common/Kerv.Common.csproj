@@ -39,6 +39,7 @@
     <Compile Include="Transaction.cs" />
     <Compile Include="Device.cs" />
     <Compile Include="Money.cs" />
+    <Compile Include="AuthenticatedRequestHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="HtmlAgilityPack">
