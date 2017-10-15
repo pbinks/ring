@@ -14,7 +14,7 @@ using Kerv.Common;
 
 namespace Kerv.Droid
 {
-    [Activity(Label = "Kerv", MainLauncher = true, Icon = "@mipmap/icon")]
+    [Activity(Label = "Kerv", MainLauncher = true, Icon = "@mipmap/ic_launcher")]
     public class LoginActivity : Activity
     {
         private EditText usernameField, passwordField;

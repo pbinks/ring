@@ -74,6 +74,11 @@
     <AndroidResource Include="Resources\layout\Login.axml" />
     <AndroidResource Include="Resources\values\Dimensions.xml" />
     <AndroidResource Include="Resources\layout\TransactionListItem.axml" />
+    <AndroidResource Include="Resources\mipmap-hdpi\ic_launcher.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\ic_launcher.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\ic_launcher.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\ic_launcher.png" />
+    <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Kerv.Common\Kerv.Common.csproj">
