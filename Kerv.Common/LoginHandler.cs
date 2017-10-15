@@ -11,7 +11,8 @@ namespace Kerv.Common
         static String LoginPageUrl = "https://kerv.com/en/loginsignup#login";
         static String LoginUrl = "https://kerv.com/umbraco/Surface/LoginSignup/Login";
 
-        public async Task<bool> Login(string username, string password)
+        public async Task<bool> Login(string username, string password, 
+                                      bool remember)
         {
             var response = await RequestHandler.Client.GetAsync(LoginPageUrl);
             if (response.StatusCode == System.Net.HttpStatusCode.Redirect) {
@@ -29,8 +30,11 @@ namespace Kerv.Common
             response = 
                 await RequestHandler.Client.PostAsync(LoginUrl, encodedContent);
             if (ValidateLoginResponse(response)) {
-                Credentials.Username = username;
-                Credentials.Password = password;
+                if (remember)
+                {
+                    Credentials.Username = username;
+                    Credentials.Password = password;
+                }
                 return true;
             } else {
                 Credentials.Clear();

@@ -16,12 +16,18 @@
         android:layout_height="wrap_content"
         android:id="@+id/passwordField"
         android:hint="Password" />
+    <CheckBox
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rememberCheckbox"
+        android:text="Remember Me"
+        android:checked="true" />
     <Button
         android:text="Submit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/submitButton" />
-    <ProgressBar
+    <ProgressBar xmlns:tools="http://schemas.android.com/tools"
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -29,6 +35,5 @@
         android:indeterminate="true"
         android:indeterminateOnly="true"
         android:indeterminateBehavior="cycle"
-        xmlns:tools="http://schemas.android.com/tools"
         tools:visibility="gone" />
 </LinearLayout>

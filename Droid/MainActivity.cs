@@ -2,11 +2,12 @@
 using Android.Widget;
 using Android.OS;
 using Kerv.Common;
+using Android.Content;
 
 namespace Kerv.Droid
 {
-    [Activity(Label = "Kerv")]
-    public class MainActivity : Activity
+    [Activity(Label = "Ring")]
+    public class MainActivity : Activity, LoggedOutListener
     {
 
 
@@ -42,7 +43,7 @@ namespace Kerv.Droid
                 balanceView.Text = Account.Balance.ToString();
             }
 
-            statementHandler = new StatementHandler();
+            statementHandler = new StatementHandler(this);
             UpdateStatement();
         }
 
@@ -65,6 +66,13 @@ namespace Kerv.Droid
                 await statementHandler.TransactionsForDevice(statementHandler.RingID);
             }
             transactionAdaptor.Transactions = statementHandler.Transactions;
+        }
+
+        public void OnLoggedOut()
+        {
+            var intent = new Intent(this, typeof(LoginActivity));
+            StartActivity(intent);
+            Finish();
         }
     }
 }

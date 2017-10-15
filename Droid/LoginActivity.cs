@@ -14,12 +14,13 @@ using Kerv.Common;
 
 namespace Kerv.Droid
 {
-    [Activity(Label = "Kerv", MainLauncher = true, Icon = "@mipmap/ic_launcher")]
+    [Activity(Label = "Ring", MainLauncher = true, Icon = "@mipmap/ic_launcher")]
     public class LoginActivity : Activity
     {
         private EditText usernameField, passwordField;
         private Button submitButton;
         private ProgressBar loginProgress;
+        private CheckBox rememberCheckbox;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -31,10 +32,14 @@ namespace Kerv.Droid
             usernameField = FindViewById<EditText>(Resource.Id.usernameField);
             passwordField = FindViewById<EditText>(Resource.Id.passwordField);
             submitButton = FindViewById<Button>(Resource.Id.submitButton);
-            loginProgress = FindViewById<ProgressBar>(Resource.Id.loginProgress);
+            loginProgress = 
+                FindViewById<ProgressBar>(Resource.Id.loginProgress);
+            rememberCheckbox = 
+                FindViewById<CheckBox>(Resource.Id.rememberCheckbox);
 
             submitButton.Click += delegate {
-                Login(usernameField.Text, passwordField.Text);
+                Login(usernameField.Text, passwordField.Text, 
+                      rememberCheckbox.Checked);
             };
 
             if (!String.IsNullOrEmpty(Credentials.Username)) {
@@ -45,7 +50,7 @@ namespace Kerv.Droid
                 SetEnabled(true);
             } else {
                 SetEnabled(false);
-                Login(Credentials.Username, Credentials.Password);
+                Login(Credentials.Username, Credentials.Password, true);
             }
         }
 
@@ -53,14 +58,15 @@ namespace Kerv.Droid
             usernameField.Visibility = enabled ? ViewStates.Visible : ViewStates.Gone;
             passwordField.Visibility = enabled ? ViewStates.Visible : ViewStates.Gone;
             submitButton.Visibility = enabled ? ViewStates.Visible : ViewStates.Gone;
+            rememberCheckbox.Visibility = enabled ? ViewStates.Visible : ViewStates.Gone;
             loginProgress.Visibility = enabled ? ViewStates.Gone : ViewStates.Visible;
         }
 
-        async void Login(string username, string password) {
+        async void Login(string username, string password, bool remember) {
             SetEnabled(false);
             LoginHandler handler = new LoginHandler();
             var loggedIn = 
-                await handler.Login(username, password);
+                await handler.Login(username, password, remember);
             if (loggedIn) {
                 var intent = new Intent(this, typeof(MainActivity));
                 StartActivity(intent);

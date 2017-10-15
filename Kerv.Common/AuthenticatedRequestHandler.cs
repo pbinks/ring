@@ -5,10 +5,17 @@ using System.Threading.Tasks;
 
 namespace Kerv.Common
 {
-    public class NotLoggedInException : Exception {}
+    public interface LoggedOutListener {
+        void OnLoggedOut();
+    }
 
     public class AuthenticatedRequestHandler
     {
+        private LoggedOutListener loggedOutListener;
+
+        public AuthenticatedRequestHandler(LoggedOutListener listener) 
+                => loggedOutListener = listener;
+
         protected async Task<HttpResponseMessage> Get(String url) {
             var response = await RequestHandler.Client.GetAsync(url);
 
@@ -17,17 +24,20 @@ namespace Kerv.Common
             }
 
             if (String.IsNullOrEmpty(Credentials.Password)) {
-                throw new NotLoggedInException();
+                loggedOutListener.OnLoggedOut();
+                return new HttpResponseMessage(HttpStatusCode.Forbidden);
             }
 
             var loginHandler = new LoginHandler();
-            var success = await loginHandler.Login(Credentials.Username, Credentials.Password);
+            var success = await loginHandler.Login(Credentials.Username, 
+                                                   Credentials.Password, false);
 
             if (success) {
                 response = await RequestHandler.Client.GetAsync(url);
                 return response;
             } else {
-                throw new NotLoggedInException();
+                loggedOutListener.OnLoggedOut();
+                return new HttpResponseMessage(HttpStatusCode.Forbidden);
             }
         }
     }

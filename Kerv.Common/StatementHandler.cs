@@ -19,13 +19,16 @@ namespace Kerv.Common
         public String RingID { get; private set; }
         public String CardID { get; private set; }
 
-        public StatementHandler() {
+        public StatementHandler(LoggedOutListener listener) : base(listener) {
             transactions = new List<Transaction>();
         }
 
         public async Task<bool> RefreshStatement()
         {
             var response = await Get(statementUrl);
+            if (!response.IsSuccessStatusCode) {
+                return false;
+            }
             var html = await response.Content.ReadAsStringAsync();
             try
             {
@@ -44,6 +47,9 @@ namespace Kerv.Common
 
         public async Task<bool> TransactionsForDevice(string deviceID) {
             var response = await Get(String.Format(transactionsUrl, deviceID));
+            if (!response.IsSuccessStatusCode) {
+                return false;
+            }
             var doc = new HtmlDocument();
             var stream = await response.Content.ReadAsStreamAsync();
             doc.Load(stream);

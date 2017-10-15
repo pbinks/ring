@@ -82,38 +82,41 @@ namespace Kerv.Droid
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f07000b
-			public const int amountView = 2131165195;
-			
-			// aapt resource value: 0x7f070005
-			public const int balanceLabel = 2131165189;
-			
-			// aapt resource value: 0x7f070004
-			public const int balanceLayout = 2131165188;
+			// aapt resource value: 0x7f07000c
+			public const int amountView = 2131165196;
 			
 			// aapt resource value: 0x7f070006
-			public const int balanceView = 2131165190;
+			public const int balanceLabel = 2131165190;
 			
-			// aapt resource value: 0x7f070009
-			public const int dateView = 2131165193;
-			
-			// aapt resource value: 0x7f07000a
-			public const int descriptionView = 2131165194;
+			// aapt resource value: 0x7f070005
+			public const int balanceLayout = 2131165189;
 			
 			// aapt resource value: 0x7f070007
-			public const int deviceSpinner = 2131165191;
+			public const int balanceView = 2131165191;
 			
-			// aapt resource value: 0x7f070003
-			public const int loginProgress = 2131165187;
+			// aapt resource value: 0x7f07000a
+			public const int dateView = 2131165194;
+			
+			// aapt resource value: 0x7f07000b
+			public const int descriptionView = 2131165195;
+			
+			// aapt resource value: 0x7f070008
+			public const int deviceSpinner = 2131165192;
+			
+			// aapt resource value: 0x7f070004
+			public const int loginProgress = 2131165188;
 			
 			// aapt resource value: 0x7f070001
 			public const int passwordField = 2131165185;
 			
 			// aapt resource value: 0x7f070002
-			public const int submitButton = 2131165186;
+			public const int rememberCheckbox = 2131165186;
 			
-			// aapt resource value: 0x7f070008
-			public const int transactionListView = 2131165192;
+			// aapt resource value: 0x7f070003
+			public const int submitButton = 2131165187;
+			
+			// aapt resource value: 0x7f070009
+			public const int transactionListView = 2131165193;
 			
 			// aapt resource value: 0x7f070000
 			public const int usernameField = 2131165184;
