@@ -12,6 +12,10 @@ using Android.Views;
 using Android.Widget;
 using Kerv.Common;
 
+using Microsoft.Azure.Mobile;
+using Microsoft.Azure.Mobile.Analytics;
+using Microsoft.Azure.Mobile.Crashes;
+
 namespace Kerv.Droid
 {
     [Activity(Label = "Ring", MainLauncher = true, Icon = "@mipmap/ic_launcher")]
@@ -25,6 +29,9 @@ namespace Kerv.Droid
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+
+            MobileCenter.Start(GetString(Resource.String.azure_mobile_key),
+                   typeof(Analytics), typeof(Crashes));
 
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Login);
