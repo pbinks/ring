@@ -3,19 +3,23 @@ using Android.Widget;
 using Android.OS;
 using Kerv.Common;
 using Android.Content;
+using Android.Support.V4.Widget;
 
 namespace Kerv.Droid
 {
     [Activity(Label = "Ring")]
-    public class MainActivity : Activity, LoggedOutListener
+    public class MainActivity 
+        : Activity, LoggedOutListener, SwipeRefreshLayout.IOnRefreshListener
     {
 
 
         TextView balanceView;
         ListView transactionsView;
+        SwipeRefreshLayout transactionsRefreshLayout;
         Spinner deviceSpinner;
         TransactionAdaptor transactionAdaptor;
         StatementHandler statementHandler;
+        string deviceId;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -27,6 +31,11 @@ namespace Kerv.Droid
             transactionsView = 
                 FindViewById<ListView>(Resource.Id.transactionListView);
             deviceSpinner = FindViewById<Spinner>(Resource.Id.deviceSpinner);
+            transactionsRefreshLayout = 
+                FindViewById<SwipeRefreshLayout>(
+                    Resource.Id.transactionRefreshLayout);
+
+            transactionsRefreshLayout.SetOnRefreshListener(this);
 
             transactionAdaptor = new TransactionAdaptor(this);
             transactionsView.Adapter = transactionAdaptor;
@@ -48,24 +57,36 @@ namespace Kerv.Droid
         }
 
         private async void UpdateStatement() {
+            transactionsRefreshLayout.Refreshing = true;
             var success = await statementHandler.RefreshStatement();
             if (success) {
                 balanceView.Text = Account.Balance.ToString();
+                if (string.IsNullOrEmpty(deviceId))
+                {
+                    deviceId = statementHandler.CardID;
+                }
+                if (deviceId != statementHandler.CardID) {
+                    await statementHandler.TransactionsForDevice(deviceId);
+                }
                 transactionAdaptor.Transactions = statementHandler.Transactions;
                 if (!string.IsNullOrEmpty(statementHandler.RingID)) {
                     deviceSpinner.Enabled = true;
                 }
             }
+            transactionsRefreshLayout.Refreshing = false;
         }
 
         async void DeviceSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
+            transactionsRefreshLayout.Refreshing = true;
             if (e.Position == 0) {
-                await statementHandler.TransactionsForDevice(statementHandler.CardID);
+                deviceId = statementHandler.CardID;
             } else {
-                await statementHandler.TransactionsForDevice(statementHandler.RingID);
+                deviceId = statementHandler.RingID;
             }
+            await statementHandler.TransactionsForDevice(deviceId);
             transactionAdaptor.Transactions = statementHandler.Transactions;
+            transactionsRefreshLayout.Refreshing = false;
         }
 
         public void OnLoggedOut()
@@ -73,6 +94,11 @@ namespace Kerv.Droid
             var intent = new Intent(this, typeof(LoginActivity));
             StartActivity(intent);
             Finish();
+        }
+
+        public void OnRefresh()
+        {
+            UpdateStatement();
         }
     }
 }
