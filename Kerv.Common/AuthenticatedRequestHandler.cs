@@ -30,7 +30,7 @@ namespace Kerv.Common
 
             var loginHandler = new LoginHandler();
             var success = await loginHandler.Login(Credentials.Username, 
-                                                   Credentials.Password, false);
+                                                   Credentials.Password, true);
 
             if (success) {
                 response = await RequestHandler.Client.GetAsync(url);
