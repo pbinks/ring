@@ -23,6 +23,8 @@ namespace Kerv.Common
                 return response;
             }
 
+            RequestHandler.Reset();
+
             if (String.IsNullOrEmpty(Credentials.Password)) {
                 loggedOutListener.OnLoggedOut();
                 return new HttpResponseMessage(HttpStatusCode.Forbidden);
