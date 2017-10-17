@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 using HtmlAgilityPack;
 
@@ -25,13 +26,14 @@ namespace Kerv.Common
 
         public async Task<bool> RefreshStatement()
         {
-            var response = await Get(statementUrl);
-            if (!response.IsSuccessStatusCode) {
-                return false;
-            }
-            var html = await response.Content.ReadAsStringAsync();
             try
             {
+                var response = await Get(statementUrl);
+                if (!response.IsSuccessStatusCode)
+                {
+                    return false;
+                }
+                var html = await response.Content.ReadAsStringAsync();
                 var doc = new HtmlDocument();
                 var stream = await response.Content.ReadAsStreamAsync();
                 doc.Load(stream);
@@ -39,21 +41,31 @@ namespace Kerv.Common
                 ParseTransactions(doc);
                 ParseDevices(doc);
                 Account.Balance = balance;
-            } catch(InvalidFormatException ex) {
+            } catch(InvalidFormatException) {
+                return false;
+            } catch (WebException) {
+                return false;
+            } catch (Exception) {
                 return false;
             }
             return true;
         }
 
         public async Task<bool> TransactionsForDevice(string deviceID) {
-            var response = await Get(String.Format(transactionsUrl, deviceID));
-            if (!response.IsSuccessStatusCode) {
+            try
+            {
+                var response = await Get(String.Format(transactionsUrl, deviceID));
+                if (!response.IsSuccessStatusCode)
+                {
+                    return false;
+                }
+                var doc = new HtmlDocument();
+                var stream = await response.Content.ReadAsStreamAsync();
+                doc.Load(stream);
+                ParseTransactions(doc);
+            } catch (Exception) {
                 return false;
             }
-            var doc = new HtmlDocument();
-            var stream = await response.Content.ReadAsStreamAsync();
-            doc.Load(stream);
-            ParseTransactions(doc);
             return true;
         }
 
