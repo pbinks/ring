@@ -95,6 +95,7 @@
     <Compile Include="LoginActivity.cs" />
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="TransactionAdaptor.cs" />
+    <Compile Include="DeviceAdaptor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

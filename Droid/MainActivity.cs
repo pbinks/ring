@@ -11,15 +11,14 @@ namespace Kerv.Droid
     public class MainActivity 
         : Activity, LoggedOutListener, SwipeRefreshLayout.IOnRefreshListener
     {
-
-
         TextView balanceView;
         ListView transactionsView;
         SwipeRefreshLayout transactionsRefreshLayout;
         Spinner deviceSpinner;
         TransactionAdaptor transactionAdaptor;
+        DeviceAdaptor deviceAdaptor;
         StatementHandler statementHandler;
-        string deviceId;
+        Device device;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -40,10 +39,8 @@ namespace Kerv.Droid
             transactionAdaptor = new TransactionAdaptor(this);
             transactionsView.Adapter = transactionAdaptor;
 
-            deviceSpinner.Adapter = 
-                new ArrayAdapter(this, 
-                                 Android.Resource.Layout.SimpleSpinnerDropDownItem, 
-                                 Resources.GetStringArray(Resource.Array.device_list));
+            deviceAdaptor = new DeviceAdaptor(this);
+            deviceSpinner.Adapter = deviceAdaptor;
             deviceSpinner.Enabled = false;
             deviceSpinner.ItemSelected += DeviceSelected;
 
@@ -61,15 +58,15 @@ namespace Kerv.Droid
             var success = await statementHandler.RefreshStatement();
             if (success) {
                 balanceView.Text = Account.Balance.ToString();
-                if (string.IsNullOrEmpty(deviceId))
-                {
-                    deviceId = statementHandler.CardID;
+                deviceAdaptor.Devices = statementHandler.Devices;
+                if (device == null) {
+                    device = statementHandler.Devices[0];
                 }
-                if (deviceId != statementHandler.CardID) {
-                    await statementHandler.TransactionsForDevice(deviceId);
+                if (device != statementHandler.Devices[0]) {
+                    await statementHandler.TransactionsForDevice(device);
                 }
                 transactionAdaptor.Transactions = statementHandler.Transactions;
-                if (!string.IsNullOrEmpty(statementHandler.RingID)) {
+                if (deviceSpinner.Count > 1) {
                     deviceSpinner.Enabled = true;
                 }
             }
@@ -79,12 +76,8 @@ namespace Kerv.Droid
         async void DeviceSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
             transactionsRefreshLayout.Refreshing = true;
-            if (e.Position == 0) {
-                deviceId = statementHandler.CardID;
-            } else {
-                deviceId = statementHandler.RingID;
-            }
-            await statementHandler.TransactionsForDevice(deviceId);
+            device = statementHandler.Devices[e.Position];
+            await statementHandler.TransactionsForDevice(device);
             transactionAdaptor.Transactions = statementHandler.Transactions;
             transactionsRefreshLayout.Refreshing = false;
         }

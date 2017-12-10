@@ -17,11 +17,11 @@ namespace Kerv.Common
 
         private List<Transaction> transactions;
         public List<Transaction> Transactions { get => transactions; }
-        public String RingID { get; private set; }
-        public String CardID { get; private set; }
+        public List<Device> Devices { get; }
 
         public StatementHandler(LoggedOutListener listener) : base(listener) {
             transactions = new List<Transaction>();
+            Devices = new List<Device>();
         }
 
         public async Task<bool> RefreshStatement()
@@ -45,16 +45,16 @@ namespace Kerv.Common
                 return false;
             } catch (WebException) {
                 return false;
-            } catch (Exception) {
+            } catch (Exception e) {
                 return false;
-            }
+            } 
             return true;
         }
 
-        public async Task<bool> TransactionsForDevice(string deviceID) {
+        public async Task<bool> TransactionsForDevice(Device device) {
             try
             {
-                var response = await Get(String.Format(transactionsUrl, deviceID));
+                var response = await Get(String.Format(transactionsUrl, device.ID));
                 if (!response.IsSuccessStatusCode)
                 {
                     return false;
@@ -113,11 +113,12 @@ namespace Kerv.Common
         private void ParseDevices(HtmlDocument html) {
             var select = html.GetElementbyId("deviceID");
             var options = select.Descendants("option");
+            Devices.Clear();
             foreach (var option in options) {
-                if (option.NextSibling.InnerText.Trim().StartsWith("Ring")) {
-                    RingID = option.Attributes["value"].Value;
-                } else if (option.NextSibling.InnerText.Trim().StartsWith("VCard")) {
-                    CardID = option.Attributes["value"].Value;
+                var deviceName = option.NextSibling.InnerText.Trim();
+                var deviceId = long.Parse(option.Attributes["value"].Value);
+                if (deviceId != 0) {
+                    Devices.Add(new Device(deviceName, deviceId));
                 }
             }
         }

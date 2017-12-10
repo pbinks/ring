@@ -28,22 +28,6 @@ namespace Kerv.Droid
 		{
 		}
 		
-		public partial class Array
-		{
-			
-			// aapt resource value: 0x7f0c0000
-			public const int device_list = 2131492864;
-			
-			static Array()
-			{
-				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
-			}
-			
-			private Array()
-			{
-			}
-		}
-		
 		public partial class Attribute
 		{
 			
