@@ -44,7 +44,23 @@ namespace Kerv.Droid
                     context.GetSystemService(Activity.LayoutInflaterService)
                            as LayoutInflater;
                 convertView =
-                    inflater.Inflate(Android.Resource.Layout.SimpleSpinnerDropDownItem, null);
+                    inflater.Inflate(Android.Resource.Layout.SimpleSpinnerItem, parent, false);
+            }
+
+            TextView descriptionView = convertView.FindViewById<TextView>(Android.Resource.Id.Text1);
+            descriptionView.Text = devices[position].ShortDescription;
+            return convertView;
+        }
+
+        public override View GetDropDownView(int position, View convertView, ViewGroup parent)
+        {
+            if (convertView == null)
+            {
+                var inflater =
+                    context.GetSystemService(Activity.LayoutInflaterService)
+                           as LayoutInflater;
+                convertView =
+                    inflater.Inflate(Android.Resource.Layout.SimpleDropDownItem1Line, parent, false);
             }
 
             TextView descriptionView = convertView.FindViewById<TextView>(Android.Resource.Id.Text1);
