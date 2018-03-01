@@ -270,8 +270,8 @@ namespace Kerv.Droid
 			// aapt resource value: 0x7f0b0026
 			public const int actions = 2131427366;
 			
-			// aapt resource value: 0x7f0b002b
-			public const int amountView = 2131427371;
+			// aapt resource value: 0x7f0b002c
+			public const int amountView = 2131427372;
 			
 			// aapt resource value: 0x7f0b0005
 			public const int async = 2131427333;
@@ -294,11 +294,11 @@ namespace Kerv.Droid
 			// aapt resource value: 0x7f0b0021
 			public const int chronometer = 2131427361;
 			
-			// aapt resource value: 0x7f0b0029
-			public const int dateView = 2131427369;
-			
 			// aapt resource value: 0x7f0b002a
-			public const int descriptionView = 2131427370;
+			public const int dateView = 2131427370;
+			
+			// aapt resource value: 0x7f0b002b
+			public const int descriptionView = 2131427371;
 			
 			// aapt resource value: 0x7f0b0012
 			public const int deviceSpinner = 2131427346;
@@ -374,6 +374,12 @@ namespace Kerv.Droid
 			
 			// aapt resource value: 0x7f0b0004
 			public const int title = 2131427332;
+			
+			// aapt resource value: 0x7f0b002d
+			public const int top_up = 2131427373;
+			
+			// aapt resource value: 0x7f0b0029
+			public const int topupWebView = 2131427369;
 			
 			// aapt resource value: 0x7f0b0014
 			public const int transactionListView = 2131427348;
@@ -468,7 +474,10 @@ namespace Kerv.Droid
 			public const int notification_template_part_time = 2130968592;
 			
 			// aapt resource value: 0x7f040011
-			public const int TransactionListItem = 2130968593;
+			public const int TopUp = 2130968593;
+			
+			// aapt resource value: 0x7f040012
+			public const int TransactionListItem = 2130968594;
 			
 			static Layout()
 			{
@@ -476,6 +485,22 @@ namespace Kerv.Droid
 			}
 			
 			private Layout()
+			{
+			}
+		}
+		
+		public partial class Menu
+		{
+			
+			// aapt resource value: 0x7f0c0000
+			public const int menu_main = 2131492864;
+			
+			static Menu()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Menu()
 			{
 			}
 		}
@@ -513,6 +538,9 @@ namespace Kerv.Droid
 			
 			// aapt resource value: 0x7f080000
 			public const int status_bar_notification_info_overflow = 2131230720;
+			
+			// aapt resource value: 0x7f080004
+			public const int top_up = 2131230724;
 			
 			static String()
 			{

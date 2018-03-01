@@ -2,4 +2,5 @@
 <resources>
 	<string name="hello">Hello World, Click Me!</string>
 	<string name="app_name">Ring for Kerv</string>
+	<string name="top_up">Top Up</string>
 </resources>

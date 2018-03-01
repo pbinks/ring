@@ -1,5 +1,6 @@
 ﻿using Android.App;
 using Android.Widget;
+using Android.Views;
 using Android.OS;
 using Kerv.Common;
 using Android.Content;
@@ -51,6 +52,23 @@ namespace Kerv.Droid
 
             statementHandler = new StatementHandler(this);
             UpdateStatement();
+        }
+
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+            MenuInflater.Inflate(Resource.Menu.menu_main, menu);
+            return true;
+        }
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            switch (item.ItemId) {
+                case Resource.Id.top_up:
+                    var intent = new Intent(this, typeof(TopupActivity));
+                    StartActivity(intent);
+                    return true;
+            }
+            return false;
         }
 
         private async void UpdateStatement() {

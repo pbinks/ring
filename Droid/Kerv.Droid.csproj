@@ -96,6 +96,7 @@
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="TransactionAdaptor.cs" />
     <Compile Include="DeviceAdaptor.cs" />
+    <Compile Include="TopupActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -120,12 +121,17 @@
     <AndroidResource Include="Resources\mipmap-xxhdpi\ic_launcher.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher.png" />
     <AndroidResource Include="Resources\values\Secrets.xml" />
+    <AndroidResource Include="Resources\menu\menu_main.axml" />
+    <AndroidResource Include="Resources\layout\TopUp.axml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Kerv.Common\Kerv.Common.csproj">
       <Project>{0C48DE6F-94EA-458C-988E-64E9D5175E8F}</Project>
       <Name>Kerv.Common</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\menu\" />
   </ItemGroup>
   <Import Project="..\Kerv\Kerv.projitems" Label="Shared" Condition="Exists('..\Kerv\Kerv.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
