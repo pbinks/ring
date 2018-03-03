@@ -53,6 +53,14 @@ namespace Kerv.Droid
                 this.loader = loader;
             }
 
+            public override void OnPageStarted(WebView view, string url, Android.Graphics.Bitmap favicon)
+            {
+                base.OnPageStarted(view, url, favicon);
+
+                view.Visibility = ViewStates.Gone;
+                loader.Visibility = ViewStates.Visible;
+            }
+
             public override void OnPageFinished(WebView view, string url)
             {
                 var stream = context.Assets.Open("topup.css");

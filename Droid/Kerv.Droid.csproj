@@ -123,6 +123,11 @@
     <AndroidResource Include="Resources\values\Secrets.xml" />
     <AndroidResource Include="Resources\menu\menu_main.axml" />
     <AndroidResource Include="Resources\layout\TopUp.axml" />
+    <AndroidResource Include="Resources\mipmap-hdpi\ic_topup.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\ic_topup.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\ic_topup.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\ic_topup.png" />
+    <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_topup.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Kerv.Common\Kerv.Common.csproj">

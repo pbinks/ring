@@ -7,14 +7,14 @@
     color: white;
 }
 
-    #mainContent input {
-        color: black;
-    }
+#mainContent input {
+    color: black;
+}
 
-    #mainContent button {
-        background: #45A744;
-        border: 1px solid #45A744;
-    }
+#mainContent button {
+    background: #45A744;
+    border: 1px solid #45A744;
+}
 
 #load-placeholder + div {
     display: none;
@@ -41,5 +41,17 @@
 }
 
 #launcher {
+    display: none;
+}
+
+.feedback {
+    color: white;
+}
+
+.feedback__title {
+    color: white;
+}
+
+#mainContent div.expanded {
     display: none;
 }
