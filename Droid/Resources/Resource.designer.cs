@@ -515,7 +515,10 @@ namespace Kerv.Droid
 			public const int ic_launcher = 2130903040;
 			
 			// aapt resource value: 0x7f030001
-			public const int Icon = 2130903041;
+			public const int ic_topup = 2130903041;
+			
+			// aapt resource value: 0x7f030002
+			public const int Icon = 2130903042;
 			
 			static Mipmap()
 			{
