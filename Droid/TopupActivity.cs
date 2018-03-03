@@ -33,7 +33,7 @@ namespace Kerv.Droid
             progressBar = FindViewById<ProgressBar>(Resource.Id.loadProgress);
 
             webView = FindViewById<WebView>(Resource.Id.topupWebView);
-            webView.Visibility = ViewStates.Invisible;
+            webView.Visibility = ViewStates.Gone;
             webView.SetWebViewClient(new TopupClient(this, progressBar));
 
             foreach (var cookie in Session.Instance.Cookies) {
@@ -56,6 +56,8 @@ namespace Kerv.Droid
             public override void OnPageFinished(WebView view, string url)
             {
                 if (url.StartsWith("javascript")) {
+                    view.Visibility = ViewStates.Visible;
+                    loader.Visibility = ViewStates.Gone;
                     base.OnPageFinished(view, url);
                     return;
                 }
@@ -73,8 +75,6 @@ namespace Kerv.Droid
                     "style.appendChild(document.createTextNode(css));" +
                     "document.head.appendChild(style);" +
                 "})()");
-                
-                view.Visibility = ViewStates.Visible;
 
                 base.OnPageFinished(view, url);
             }

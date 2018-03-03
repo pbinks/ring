@@ -327,8 +327,8 @@ namespace Kerv.Droid
 			// aapt resource value: 0x7f0b0001
 			public const int line3 = 2131427329;
 			
-			// aapt resource value: 0x7f0b002a
-			public const int loadProgress = 2131427370;
+			// aapt resource value: 0x7f0b0029
+			public const int loadProgress = 2131427369;
 			
 			// aapt resource value: 0x7f0b000e
 			public const int loginProgress = 2131427342;
@@ -381,8 +381,8 @@ namespace Kerv.Droid
 			// aapt resource value: 0x7f0b002e
 			public const int top_up = 2131427374;
 			
-			// aapt resource value: 0x7f0b0029
-			public const int topupWebView = 2131427369;
+			// aapt resource value: 0x7f0b002a
+			public const int topupWebView = 2131427370;
 			
 			// aapt resource value: 0x7f0b0014
 			public const int transactionListView = 2131427348;

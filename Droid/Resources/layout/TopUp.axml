@@ -3,10 +3,6 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <WebView
-        android:id="@+id/topupWebView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
     <ProgressBar xmlns:tools="http://schemas.android.com/tools"
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="match_parent"
@@ -14,6 +10,9 @@
         android:id="@+id/loadProgress"
         android:indeterminate="true"
         android:indeterminateOnly="true"
-        android:indeterminateBehavior="cycle"
-        tools:visibility="gone" />
+        android:indeterminateBehavior="cycle" />
+    <WebView
+        android:id="@+id/topupWebView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>
