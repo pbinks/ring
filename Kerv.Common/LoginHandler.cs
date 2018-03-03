@@ -64,15 +64,18 @@ namespace Kerv.Common
             IEnumerable<string> cookieValues;
             var hasCookies = 
                 response.Headers.TryGetValues("Set-Cookie", out cookieValues);
+            var loggedIn = false;
             if (hasCookies) {
+                Session.Instance.Cookies.Clear();
                 foreach (var cookie in cookieValues) {
                     if (cookie.StartsWith("kervplatform", 
                                           StringComparison.Ordinal)) {
-                        return true;
+                        loggedIn = true;
                     }
+                    Session.Instance.Cookies.Add(cookie);
                 }
             }
-            return false;
+            return loggedIn;
         }
     }
 }

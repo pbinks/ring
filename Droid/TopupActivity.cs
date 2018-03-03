@@ -11,6 +11,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.Webkit;
+using Kerv.Common;
 
 namespace Kerv.Droid
 {
@@ -24,6 +25,17 @@ namespace Kerv.Droid
             base.OnCreate(savedInstanceState);
 
             SetContentView(Resource.Layout.TopUp);
+
+            webView = FindViewById<WebView>(Resource.Id.topupWebView);
+            webView.Visibility = ViewStates.Invisible;
+            webView.SetWebViewClient(new WebViewClient());
+
+            foreach (var cookie in Session.Instance.Cookies) {
+                CookieManager.Instance.SetCookie("https://kerv.com", cookie);
+            }
+
+            webView.Settings.JavaScriptEnabled = true;
+            webView.LoadUrl("https://kerv.com/en/account/load/");
         }
     }
 }
