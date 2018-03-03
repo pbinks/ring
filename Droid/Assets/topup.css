@@ -1,0 +1,37 @@
+﻿#body {
+    background: #303030;
+}
+
+#mainContent {
+    background: #303030;
+    color: white;
+}
+
+    #mainContent input {
+        color: black;
+    }
+
+    #mainContent button {
+        background: #45A744;
+        border: 1px solid #45A744;
+    }
+
+#load-placeholder + div {
+    display: none;
+}
+
+#navbar {
+    display: none;
+}
+
+.hero {
+    display: none;
+}
+
+.wpwl-wrapper-registration {
+    color: white;
+}
+
+.off-canvas-content {
+    background: #303030;
+}

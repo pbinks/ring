@@ -12,6 +12,9 @@ using Android.Views;
 using Android.Widget;
 using Android.Webkit;
 using Kerv.Common;
+using System.IO;
+using Android.Util;
+using System.Text.RegularExpressions;
 
 namespace Kerv.Droid
 {
@@ -19,6 +22,7 @@ namespace Kerv.Droid
     public class TopupActivity : Activity
     {
         WebView webView;
+        ProgressBar progressBar;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -26,9 +30,11 @@ namespace Kerv.Droid
 
             SetContentView(Resource.Layout.TopUp);
 
+            progressBar = FindViewById<ProgressBar>(Resource.Id.loadProgress);
+
             webView = FindViewById<WebView>(Resource.Id.topupWebView);
             webView.Visibility = ViewStates.Invisible;
-            webView.SetWebViewClient(new TopupClient());
+            webView.SetWebViewClient(new TopupClient(this, progressBar));
 
             foreach (var cookie in Session.Instance.Cookies) {
                 CookieManager.Instance.SetCookie("https://kerv.com", cookie);
@@ -39,18 +45,37 @@ namespace Kerv.Droid
         }
 
         private class TopupClient : WebViewClient {
+            private Context context;
+            private ProgressBar loader;
+
+            public TopupClient(Context context, ProgressBar loader) {
+                this.context = context;
+                this.loader = loader;
+            }
+
             public override void OnPageFinished(WebView view, string url)
             {
-                view.LoadUrl("javascript:(function() { " +
-                             "document.getElementById('navbar').style.display = 'none'; " +
-                             "})()");
-                view.LoadUrl("javascript:(function() { " +
-                             "document.getElementsByTagName('header')[0].style.display = 'none'; " +
-                             "})()");
-                view.LoadUrl("javascript:(function() { " +
-                             "document.getElementById('mainContent').children[1].style.display = 'none'; " +
-                             "})()");
+                if (url.StartsWith("javascript")) {
+                    base.OnPageFinished(view, url);
+                    return;
+                }
+
+                var stream = context.Assets.Open("topup.css");
+                StreamReader sr = new StreamReader(stream);
+                string cssText = sr.ReadToEnd();
+                cssText = Regex.Replace(cssText, @"\t|\n|\r", "");
+                sr.Close();
+
+                view.LoadUrl("javascript:(function() {" +
+                    "var css = '" + cssText + "';" +
+                    "var style = document.createElement('style');" +
+                    "style.type = 'text/css';" +
+                    "style.appendChild(document.createTextNode(css));" +
+                    "document.head.appendChild(style);" +
+                "})()");
+                
                 view.Visibility = ViewStates.Visible;
+
                 base.OnPageFinished(view, url);
             }
 

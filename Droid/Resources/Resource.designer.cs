@@ -270,8 +270,8 @@ namespace Kerv.Droid
 			// aapt resource value: 0x7f0b0026
 			public const int actions = 2131427366;
 			
-			// aapt resource value: 0x7f0b002c
-			public const int amountView = 2131427372;
+			// aapt resource value: 0x7f0b002d
+			public const int amountView = 2131427373;
 			
 			// aapt resource value: 0x7f0b0005
 			public const int async = 2131427333;
@@ -294,11 +294,11 @@ namespace Kerv.Droid
 			// aapt resource value: 0x7f0b0021
 			public const int chronometer = 2131427361;
 			
-			// aapt resource value: 0x7f0b002a
-			public const int dateView = 2131427370;
-			
 			// aapt resource value: 0x7f0b002b
-			public const int descriptionView = 2131427371;
+			public const int dateView = 2131427371;
+			
+			// aapt resource value: 0x7f0b002c
+			public const int descriptionView = 2131427372;
 			
 			// aapt resource value: 0x7f0b0012
 			public const int deviceSpinner = 2131427346;
@@ -326,6 +326,9 @@ namespace Kerv.Droid
 			
 			// aapt resource value: 0x7f0b0001
 			public const int line3 = 2131427329;
+			
+			// aapt resource value: 0x7f0b002a
+			public const int loadProgress = 2131427370;
 			
 			// aapt resource value: 0x7f0b000e
 			public const int loginProgress = 2131427342;
@@ -375,8 +378,8 @@ namespace Kerv.Droid
 			// aapt resource value: 0x7f0b0004
 			public const int title = 2131427332;
 			
-			// aapt resource value: 0x7f0b002d
-			public const int top_up = 2131427373;
+			// aapt resource value: 0x7f0b002e
+			public const int top_up = 2131427374;
 			
 			// aapt resource value: 0x7f0b0029
 			public const int topupWebView = 2131427369;
