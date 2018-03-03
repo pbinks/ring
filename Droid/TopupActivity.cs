@@ -55,13 +55,6 @@ namespace Kerv.Droid
 
             public override void OnPageFinished(WebView view, string url)
             {
-                if (url.StartsWith("javascript")) {
-                    view.Visibility = ViewStates.Visible;
-                    loader.Visibility = ViewStates.Gone;
-                    base.OnPageFinished(view, url);
-                    return;
-                }
-
                 var stream = context.Assets.Open("topup.css");
                 StreamReader sr = new StreamReader(stream);
                 string cssText = sr.ReadToEnd();
@@ -75,6 +68,9 @@ namespace Kerv.Droid
                     "style.appendChild(document.createTextNode(css));" +
                     "document.head.appendChild(style);" +
                 "})()");
+
+                view.Visibility = ViewStates.Visible;
+                loader.Visibility = ViewStates.Gone;
 
                 base.OnPageFinished(view, url);
             }

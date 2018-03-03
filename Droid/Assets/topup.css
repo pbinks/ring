@@ -35,3 +35,11 @@
 .off-canvas-content {
     background: #303030;
 }
+
+#pagetop {
+    display: none;
+}
+
+#launcher {
+    display: none;
+}
