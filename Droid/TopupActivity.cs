@@ -28,7 +28,7 @@ namespace Kerv.Droid
 
             webView = FindViewById<WebView>(Resource.Id.topupWebView);
             webView.Visibility = ViewStates.Invisible;
-            webView.SetWebViewClient(new WebViewClient());
+            webView.SetWebViewClient(new TopupClient());
 
             foreach (var cookie in Session.Instance.Cookies) {
                 CookieManager.Instance.SetCookie("https://kerv.com", cookie);
@@ -36,6 +36,24 @@ namespace Kerv.Droid
 
             webView.Settings.JavaScriptEnabled = true;
             webView.LoadUrl("https://kerv.com/en/account/load/");
+        }
+
+        private class TopupClient : WebViewClient {
+            public override void OnPageFinished(WebView view, string url)
+            {
+                view.LoadUrl("javascript:(function() { " +
+                             "document.getElementById('navbar').style.display = 'none'; " +
+                             "})()");
+                view.LoadUrl("javascript:(function() { " +
+                             "document.getElementsByTagName('header')[0].style.display = 'none'; " +
+                             "})()");
+                view.LoadUrl("javascript:(function() { " +
+                             "document.getElementById('mainContent').children[1].style.display = 'none'; " +
+                             "})()");
+                view.Visibility = ViewStates.Visible;
+                base.OnPageFinished(view, url);
+            }
+
         }
     }
 }
